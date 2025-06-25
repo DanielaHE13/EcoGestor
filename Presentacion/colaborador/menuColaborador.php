@@ -29,7 +29,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="?pid=<?php echo base64_encode('Presentacion/colaborador/perfil.php'); ?>">
+          <a class="nav-link" href="?pid=<?php echo base64_encode('Presentacion/colaborador/perfilC.php'); ?>">
             <i class="fas fa-user me-1"></i>Perfil
           </a>
         </li>

@@ -81,25 +81,19 @@ class Colaborador extends Persona {
 }
 
 public function actualizar() {
-    require_once("Persistencia/Conexion.php");
-    require_once("Persistencia/ColaboradorDAO.php");
-
     $conexion = new Conexion();
     $conexion->abrir();
-
-    // Asegúrate que los parámetros estén en el mismo orden que espera el constructor de ColaboradorDAO
     $colaboradorDAO = new ColaboradorDAO(
         $this->id,
         $this->nombre,
         $this->correo,
         $this->clave,
-        $this->telefono
+        $this->direccionOficina,
+        $this->telefono,
+        $this->domicilio
     );
-
     $exito = $conexion->ejecutar($colaboradorDAO->actualizar());
-
     $conexion->cerrar();
-
     return $exito;
 }
 

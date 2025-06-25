@@ -14,8 +14,25 @@ $mensaje = "";
 $alerta = "";
 
 if (isset($_POST["actualizar"])) {
-    $colaborador = new Colaborador($id, $_POST["nombre"], $_POST["telefono"], $_POST["correo"], $_POST["clave"]);
+    // Recoge todos los campos del formulario
+    $nombre = $_POST["nombre"];
+    $correo = $_POST["correo"];
+    $clave = $_POST["clave"];
+    $telefono = $_POST["telefono"];
+    $direccionOficina = $_POST["direccion_oficina"];
+    $domicilio = isset($_POST["domicilio"]) ? 1 : 0;
+
+    // Debug temporal para ver el id y el resultado del update
+    // Puedes eliminar estas líneas después de probar
+    echo '<div style="background:#fffbe6;padding:10px;border:1px solid #ffecb5;margin:10px 0;">';
+    echo '<b>ID de sesión:</b> ' . $id . '<br>';
+    
+    $colaborador = new Colaborador($id, $nombre, "", $correo, $clave, $direccionOficina, $telefono, $domicilio);
     $resultado = $colaborador->actualizar();
+    echo '<b>Resultado de actualizar():</b> ' . var_export($resultado, true) . '<br>';
+    echo '</div>';
+    // Fin debug
+
     if ($resultado) {
         $mensaje = "Perfil actualizado correctamente.";
         $alerta = "success";
@@ -45,6 +62,8 @@ include("Presentacion/colaborador/menuColaborador.php");
                     <p><strong>Nombre:</strong> <?php echo $colaborador->getNombre(); ?></p>
                     <p><strong>Correo:</strong> <?php echo $colaborador->getCorreo(); ?></p>
                     <p><strong>Teléfono:</strong> <?php echo $colaborador->getTelefono(); ?></p>
+                    <p><strong>Dirección oficina:</strong> <?php echo $colaborador->getDireccionOficina(); ?></p>
+                    <p><strong>¿Ofrece servicio a domicilio?:</strong> <?php echo $colaborador->getDomicilio() ? 'Sí' : 'No'; ?></p>
 
                     <div class="text-center mt-4">
                         <button class="btn btn-outline-success px-4" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">
@@ -65,7 +84,7 @@ include("Presentacion/colaborador/menuColaborador.php");
                 <h5 class="modal-title" id="modalEditarPerfilLabel">Editar Perfil</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <form method="post" action="?pid=<?php echo base64_encode("Presentacion/colaborador/editarPerfilColaborador.php"); ?>">
+            <form method="post" action="">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
@@ -82,6 +101,14 @@ include("Presentacion/colaborador/menuColaborador.php");
                     <div class="mb-3">
                         <label class="form-label">Teléfono</label>
                         <input type="text" name="telefono" class="form-control" value="<?php echo $colaborador->getTelefono(); ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dirección oficina</label>
+                        <input type="text" name="direccion_oficina" class="form-control" value="<?php echo $colaborador->getDireccionOficina(); ?>">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="domicilio" name="domicilio" value="1" <?php if($colaborador->getDomicilio()) echo 'checked'; ?>>
+                        <label class="form-check-label" for="domicilio">¿Ofrece servicio a domicilio?</label>
                     </div>
                 </div>
                 <div class="modal-footer justify-content-center">

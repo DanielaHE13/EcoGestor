@@ -40,7 +40,8 @@ $paginas_con_autenticacion = array(
     "Presentacion/colaborador/sesionColaborador.php",
     "Presentacion/colaborador/menuColaborador.php",
     "Presentacion/usuario/menuUsuario.php",
-    'Presentacion/usuario/perfilU.php'
+    'Presentacion/usuario/perfilU.php',
+    'Presentacion/colaborador/perfilC.php'
     
 );
 

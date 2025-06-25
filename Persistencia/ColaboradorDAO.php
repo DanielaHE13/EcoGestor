@@ -32,12 +32,14 @@ class ColaboradorDAO {
     }
 
     public function actualizar() {
-    return "UPDATE colaborador SET 
-                nombre = '" . $this->nombre . "',
-                correo = '" . $this->correo . "',
-                clave = '" . $this->clave . "',
-                telefono = '" . $this->telefono . "'
-            WHERE idColaborador = '" . $this->id . "'";
-}
+        return "UPDATE colaborador SET 
+                    nombre = '" . $this->nombre . "',
+                    correo = '" . $this->correo . "',
+                    contrasena = '" . md5($this->clave) . "',
+                    direccion_oficina = '" . $this->direccionOficina . "',
+                    telefono = '" . $this->telefono . "',
+                    domicilio = '" . $this->domicilio . "'
+                WHERE id = '" . $this->id . "'";
+    }
 
 }
