@@ -13,8 +13,10 @@ class Conexion{
     }
     
     public function ejecutar($sentencia){
-        $this -> resultado = $this -> conexion -> query($sentencia);
-    }
+    $this->resultado = $this->conexion->query($sentencia);
+    return $this->resultado; // Devuelve true o false
+}
+
     
     public function registro(){
         return $this -> resultado -> fetch_row();

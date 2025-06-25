@@ -25,14 +25,26 @@ class UsuarioDAO {
     }
 
     public function consultar() {
-        return "SELECT nombre, correo, nickname, telefono, direccion FROM usuario WHERE id = '" . $this->id . "'";
-    }
+    return "SELECT nombre, correo, nickname, telefono, direccion FROM usuario WHERE id = '" . $this->id . "'";
+}
+
+
 
     public function buscar($filtro) {
         return "SELECT id, nombre, correo, nickname FROM usuario WHERE nombre LIKE '%" . $filtro . "%' OR nickname LIKE '%" . $filtro . "%'";
     }
-
-
-
+    public function actualizar() {
+    return "UPDATE usuario SET 
+                nombre = '" . $this->nombre . "',
+                telefono = '" . $this->telefono . "',
+                nickname = '" . $this->nickname . "',
+                correo = '" . $this->correo . "',
+                clave = '" . $this->clave . "'
+            WHERE id = '" . $this->id . "'";
 }
+
+
+
+
+};
 

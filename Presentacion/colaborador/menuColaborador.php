@@ -37,9 +37,42 @@
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="index.php?sesion=false" class="nav-link text-danger fw-semibold">
-            <i class="fas fa-sign-out-alt me-1"></i>Cerrar sesión
+          <!-- Botón que abre el modal de cerrar sesión -->
+          <a href="#" class="btn text-white fw-bold px-4 py-2"
+            style="background-color: #4caf50; border-radius: 12px;"
+            data-bs-toggle="modal" data-bs-target="#modalCerrarSesion">
+            <i class="fa-solid fa-right-from-bracket me-2 fa-lg"></i>Salir
           </a>
+
+          <!-- Modal de Confirmación de Cierre de Sesión -->
+          <div class="modal fade" id="modalCerrarSesion" tabindex="-1" aria-labelledby="modalCerrarSesionLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content" style="border-radius: 20px; background-color: #e8f5e9;">
+
+                <div class="modal-header text-white" style="background-color: #4caf50; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+                  <h5 class="modal-title" id="modalCerrarSesionLabel">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>¿Cerrar sesión?
+                  </h5>
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body text-center">
+                  <p class="fs-5 mt-3" style="color: #2e7d32;">¿Estás segur@ de que deseas salir de EcoGestor?</p>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                  <a href="index.php?sesion=false" class="btn text-white fw-bold px-4" style="background-color: #4caf50; border-radius: 12px;">
+                    <i class="fa-solid fa-door-open me-2"></i> Sí, cerrar sesión
+                  </a>
+                  <button type="button" class="btn text-white fw-bold px-4" style="background-color: #81c784; border-radius: 12px;" data-bs-dismiss="modal">
+                    Cancelar
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
         </li>
       </ul>
     </div>

@@ -30,4 +30,14 @@ class ColaboradorDAO {
     public function buscar($filtro) {
         return "SELECT id, nombre, correo FROM colaborador WHERE nombre LIKE '%" . $filtro . "%' OR correo LIKE '%" . $filtro . "%'";
     }
+
+    public function actualizar() {
+    return "UPDATE colaborador SET 
+                nombre = '" . $this->nombre . "',
+                correo = '" . $this->correo . "',
+                clave = '" . $this->clave . "',
+                telefono = '" . $this->telefono . "'
+            WHERE idColaborador = '" . $this->id . "'";
+}
+
 }

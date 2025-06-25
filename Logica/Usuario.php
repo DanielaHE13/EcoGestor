@@ -44,20 +44,28 @@ class Usuario {
 
    
     public function consultar() {
-        $conexion = new Conexion();
-        $usuarioDAO = new UsuarioDAO($this->id);
-        $conexion->abrir();
-        $conexion->ejecutar($usuarioDAO->consultar());
-        $datos = $conexion->registro();
-        if ($datos) {
+    $conexion = new Conexion();
+    $usuarioDAO = new UsuarioDAO($this->id);
+    $conexion->abrir();
+    $conexion->ejecutar($usuarioDAO->consultar());
+    $datos = $conexion->registro();
+
+    echo "<pre>";
+    var_dump($datos);
+    echo "</pre>";
+
+    if ($datos) {
         $this->nombre = $datos[0];
         $this->correo = $datos[1];
         $this->nickname = $datos[2];
         $this->telefono = $datos[3];
         $this->direccion = $datos[4];
     }
-        $conexion->cerrar();
-    }
+    $conexion->cerrar();
+}
+
+
+
 
     
     public static function buscar($filtro) {
@@ -95,6 +103,21 @@ class Usuario {
         }
     }
 }
+public function actualizar() {
+    require_once("Persistencia/Conexion.php");
+    require_once("Persistencia/UsuarioDAO.php");
+
+    $conexion = new Conexion();
+    $conexion->abrir();
+
+    $usuarioDAO = new UsuarioDAO($this->id, $this->nombre, $this->telefono, $this->nickname, $this->correo, $this->clave);
+
+    $conexion->ejecutar($usuarioDAO->actualizar());
+
+    $conexion->cerrar();
+    return $exito;
+}
+
 
 
 }
