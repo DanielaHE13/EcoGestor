@@ -59,44 +59,44 @@ class Colaborador extends Persona {
     }
 
     public function autenticar() {
-    $conexion = new Conexion();
-    $conexion->abrir();
-    $colaboradorDAO = new ColaboradorDAO($this->id, $this->nombre, $this->correo, $this->clave, "", "", 0);
-    $conexion->ejecutar($colaboradorDAO->autenticar());
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $colaboradorDAO = new ColaboradorDAO($this->id, $this->nombre, $this->correo, $this->clave, "", "", 0);
+        $conexion->ejecutar($colaboradorDAO->autenticar());
 
-    if ($conexion->filas() == 0) {
-        $conexion->cerrar();
-        return 0; // Colaborador no encontrado
-    } else {
-        $registro = $conexion->registro();
-        if ($registro[1] == 0) {
+        if ($conexion->filas() == 0) {
             $conexion->cerrar();
-            return 2; // Inactivo (si lo implementas más adelante)
+            return 0; // Colaborador no encontrado
         } else {
-            $this->id = $registro[0];
-            $conexion->cerrar();
-            return 1; // Autenticado correctamente
+            $registro = $conexion->registro();
+            if (is_array($registro) && isset($registro[1]) && $registro[1] == 0) {
+                $conexion->cerrar();
+                return 2; // Inactivo (si lo implementas más adelante)
+            } else {
+                $this->id = isset($registro[0]) ? $registro[0] : $this->id;
+                $conexion->cerrar();
+                return 1; // Autenticado correctamente
+            }
         }
     }
-}
 
-public function actualizar() {
-    $conexion = new Conexion();
-    $conexion->abrir();
-    $colaboradorDAO = new ColaboradorDAO(
-        $this->id,
-        $this->nombre,
-        $this->correo,
-        $this->clave,
-        $this->direccionOficina,
-        $this->telefono,
-        $this->domicilio
-    );
-    $exito = $conexion->ejecutar($colaboradorDAO->actualizar());
-    $conexion->cerrar();
-    return $exito;
-}
-
-
+    public function actualizar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        // Si la clave está vacía, no la actualices
+        $claveParaActualizar = isset($this->clave) ? trim($this->clave) : "";
+        $colaboradorDAO = new ColaboradorDAO(
+            $this->id,
+            $this->nombre,
+            $this->correo,
+            $claveParaActualizar, // Solo se actualizará si no está vacía
+            $this->direccionOficina,
+            $this->telefono,
+            $this->domicilio
+        );
+        $exito = $conexion->ejecutar($colaboradorDAO->actualizar());
+        $conexion->cerrar();
+        return $exito;
+    }
 }
 ?>

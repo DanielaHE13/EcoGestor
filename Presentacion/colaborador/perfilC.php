@@ -21,17 +21,8 @@ if (isset($_POST["actualizar"])) {
     $telefono = $_POST["telefono"];
     $direccionOficina = $_POST["direccion_oficina"];
     $domicilio = isset($_POST["domicilio"]) ? 1 : 0;
-
-    // Debug temporal para ver el id y el resultado del update
-    // Puedes eliminar estas líneas después de probar
-    echo '<div style="background:#fffbe6;padding:10px;border:1px solid #ffecb5;margin:10px 0;">';
-    echo '<b>ID de sesión:</b> ' . $id . '<br>';
-    
     $colaborador = new Colaborador($id, $nombre, "", $correo, $clave, $direccionOficina, $telefono, $domicilio);
     $resultado = $colaborador->actualizar();
-    echo '<b>Resultado de actualizar():</b> ' . var_export($resultado, true) . '<br>';
-    echo '</div>';
-    // Fin debug
 
     if ($resultado) {
         $mensaje = "Perfil actualizado correctamente.";

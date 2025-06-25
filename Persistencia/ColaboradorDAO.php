@@ -32,14 +32,18 @@ class ColaboradorDAO {
     }
 
     public function actualizar() {
-        return "UPDATE colaborador SET 
-                    nombre = '" . $this->nombre . "',
-                    correo = '" . $this->correo . "',
-                    contrasena = '" . md5($this->clave) . "',
-                    direccion_oficina = '" . $this->direccionOficina . "',
-                    telefono = '" . $this->telefono . "',
-                    domicilio = '" . $this->domicilio . "'
-                WHERE id = '" . $this->id . "'";
+        // Solo actualiza la contraseña si se proporciona una nueva
+        $sql = "UPDATE colaborador SET ";
+        $sql .= "nombre = '" . $this->nombre . "', ";
+        $sql .= "correo = '" . $this->correo . "', ";
+        if (!empty($this->clave)) {
+            $sql .= "contrasena = '" . md5($this->clave) . "', ";
+        }
+        $sql .= "direccion_oficina = '" . $this->direccionOficina . "', ";
+        $sql .= "telefono = '" . $this->telefono . "', ";
+        $sql .= "domicilio = '" . $this->domicilio . "' ";
+        $sql .= "WHERE id = '" . $this->id . "'";
+        return $sql;
     }
 
 }
