@@ -32,11 +32,13 @@ class Colaborador extends Persona {
         $conexion->abrir();
         $conexion->ejecutar($colaboradorDAO->consultar());
         $datos = $conexion->registro();
-        $this->nombre = $datos[0];
-        $this->correo = $datos[1];
-        $this->direccionOficina = $datos[2];
-        $this->telefono = $datos[3];
-        $this->domicilio = $datos[4];
+        if ($datos) {
+            $this->nombre = $datos[0];
+            $this->correo = $datos[1];
+            $this->direccionOficina = $datos[2];
+            $this->telefono = $datos[3];
+            $this->domicilio = $datos[4];
+        }
         $conexion->cerrar();
     }
 

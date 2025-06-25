@@ -22,7 +22,7 @@ if (isset($_POST["autenticar"])) {
         exit;
     }
 
-    $colaborador = new Colaborador("", "", $correo, $clave);
+    $colaborador = new Colaborador("", "", "", $correo, $clave);
     if ($colaborador->autenticar()) {
         $_SESSION["id"] = $colaborador->getId();
         $_SESSION["rol"] = "colaborador";
@@ -261,23 +261,6 @@ if (isset($_POST["autenticar"])) {
                     }
                 });
             </script>
-
-
-            <script>
-                document.getElementById("formRegistro").addEventListener("submit", function(e) {
-                            e.preventDefault();
-
-                            const tipo = document.getElementById("tipo").value;
-
-                            if (tipo === "usuario") {
-                                window.location.href = "?pid=<?php echo base64_encode('Presentacion/registroUsuario.php'); ?>";
-                            } else if (tipo === "colaborador") {
-                                window.location.href = "?pid=<?php echo base64_encode('Presentacion/registroColaborador.php'); ?>";
-                            } else {
-                                alert("Por favor selecciona si eres usuario o colaborador.");
-                            }
-            </script>
-            }
 
 
         </div>

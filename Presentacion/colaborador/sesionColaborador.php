@@ -11,7 +11,7 @@ $colaborador->consultar();
 <body style="background: linear-gradient(to bottom, #e1f7e7, #c3f0cd); min-height: 100vh; font-family: 'Segoe UI', sans-serif;">
     <?php
     include("Presentacion/encabezado.php");
-    include("Presentacion/menuColaborador.php");
+    include("Presentacion/colaborador/menuColaborador.php");
     ?>
 
     <div class="container mt-5">

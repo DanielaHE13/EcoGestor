@@ -5,7 +5,7 @@ class Conexion{
     private $resultado;
     
     public function abrir(){
-        $this -> conexion = new mysqli("localhost", "root", "", "ecogestordb");
+        $this->conexion = new mysqli("localhost", "root", "", "ecogestordb", 3307);
     }
     
     public function cerrar(){
