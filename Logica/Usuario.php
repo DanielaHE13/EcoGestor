@@ -49,11 +49,13 @@ class Usuario {
         $conexion->abrir();
         $conexion->ejecutar($usuarioDAO->consultar());
         $datos = $conexion->registro();
+        if ($datos) {
         $this->nombre = $datos[0];
         $this->correo = $datos[1];
         $this->nickname = $datos[2];
         $this->telefono = $datos[3];
         $this->direccion = $datos[4];
+    }
         $conexion->cerrar();
     }
 

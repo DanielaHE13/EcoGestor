@@ -11,7 +11,7 @@ $usuario->consultar();
 <body style="background: linear-gradient(to bottom, #e1f7e7, #c3f0cd); min-height: 100vh; font-family: 'Segoe UI', sans-serif;">
     <?php
     include("Presentacion/encabezado.php");
-    include("Presentacion/menuUsuario.php");
+    include("Presentacion/usuario/menuUsuario.php");
     ?>
 
     <div class="container mt-5">

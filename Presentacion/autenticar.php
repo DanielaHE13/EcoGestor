@@ -62,20 +62,20 @@ if (isset($_POST["autenticar"])) {
         }
 
         .white-panel {
-    background-color: #ffffff;
-    min-height: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: absolute;
-    top: -40px;
-    width: 50%;
-    right: calc(50% - 50px);
-    transition: 0.3s ease-in-out;
-    z-index: 0;
-    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.2);
-    border-radius: 20px;
-    padding-bottom: 20px;
-}
+            background-color: #ffffff;
+            min-height: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: absolute;
+            top: -40px;
+            width: 50%;
+            right: calc(50% - 50px);
+            transition: 0.3s ease-in-out;
+            z-index: 0;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.2);
+            border-radius: 20px;
+            padding-bottom: 20px;
+        }
 
 
         .right-log {
@@ -205,7 +205,7 @@ if (isset($_POST["autenticar"])) {
                     <h2 class="mt-1 mb-4 text-success fw-bold">Registro</h2>
                 </div>
 
-                <form action="?pid=<?php echo base64_encode('Presentacion/registroUsuario.php'); ?>" method="post">
+                <form id="formRegistro" method="post">
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre</label>
                         <input type="text" id="nombre" name="nombre" class="form-control" required />
@@ -231,11 +231,54 @@ if (isset($_POST["autenticar"])) {
                         <input type="text" id="telefono" name="telefono" class="form-control" required />
                     </div>
 
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo de registro</label>
+                        <select id="tipo" name="tipo" class="form-select" required>
+                            <option value="">Selecciona tu rol</option>
+                            <option value="usuario">Usuario</option>
+                            <option value="colaborador">Colaborador</option>
+                        </select>
+                    </div>
+
                     <div class="text-center mb-4">
                         <button type="submit" class="btn btn-green">Registrarme</button>
                     </div>
                 </form>
             </div>
+
+            <script>
+                document.getElementById("formRegistro").addEventListener("submit", function(e) {
+                    e.preventDefault();
+
+                    const tipo = document.getElementById("tipo").value;
+
+                    if (tipo === "usuario") {
+                        window.location.href = "?pid=<?php echo base64_encode('Presentacion/sesionUsuario.php'); ?>";
+                    } else if (tipo === "colaborador") {
+                        window.location.href = "?pid=<?php echo base64_encode('Presentacion/sesionColaborador.php'); ?>";
+                    } else {
+                        alert("Por favor selecciona si eres usuario o colaborador.");
+                    }
+                });
+            </script>
+
+
+            <script>
+                document.getElementById("formRegistro").addEventListener("submit", function(e) {
+                            e.preventDefault();
+
+                            const tipo = document.getElementById("tipo").value;
+
+                            if (tipo === "usuario") {
+                                window.location.href = "?pid=<?php echo base64_encode('Presentacion/registroUsuario.php'); ?>";
+                            } else if (tipo === "colaborador") {
+                                window.location.href = "?pid=<?php echo base64_encode('Presentacion/registroColaborador.php'); ?>";
+                            } else {
+                                alert("Por favor selecciona si eres usuario o colaborador.");
+                            }
+            </script>
+            }
+
 
         </div>
     </div>

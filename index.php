@@ -32,18 +32,15 @@ require_once("Logica/CategoriaResiduo.php");
 $paginas_sin_autenticacion = array(
     "Presentacion/inicio.php",
     "Presentacion/autenticar.php",
-    "Presentacion/registroUsuario.php",
-    "Presentacion/registroColaborador.php",
     "Presentacion/noAutorizado.php"
 );
 
 $paginas_con_autenticacion = array(
-    "Presentacion/usuario/inicioUsuario.php",
-    "Presentacion/colaborador/inicioColaborador.php",
-    "Presentacion/usuario/listarPublicaciones.php",
-    "Presentacion/usuario/solicitarRecoleccion.php",
-    "Presentacion/colaborador/publicarContenido.php",
-    "Presentacion/colaborador/gestionarPuntos.php"
+    "Presentacion/usuario/sesionUsuario.php",
+    "Presentacion/colaborador/sesionColaborador.php",
+    "Presentacion/colaborador/menuColaborador.php",
+    "Presentacion/usuario/menuUsuario.php"
+    
 );
 
 // Lógica para mostrar páginas

@@ -16,7 +16,7 @@
       <!-- Logo -->
       <div class="col-auto">
         <a href="?">
-          <img src="imagen/logoEco.png" alt="Logo EcoGestor" class="img-fluid" style="max-width: 90px;">
+          <img src="img/logo.jpeg" alt="Logo EcoGestor" class="img-fluid" style="max-width: 90px;">
         </a>
       </div>
 

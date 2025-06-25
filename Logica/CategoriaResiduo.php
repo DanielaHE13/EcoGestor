@@ -51,8 +51,4 @@ class CategoriaResiduo {
     public function setId($id) { $this->id = $id; }
     public function setNombre($nombre) { $this->nombre = $nombre; }
     public function setDescripcion($descripcion) { $this->descripcion = $descripcion; }
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> origin/main
+};
