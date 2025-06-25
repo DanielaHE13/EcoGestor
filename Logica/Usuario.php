@@ -44,28 +44,26 @@ class Usuario {
 
    
     public function consultar() {
-    $conexion = new Conexion();
-    $usuarioDAO = new UsuarioDAO($this->id);
-    $conexion->abrir();
-    $conexion->ejecutar($usuarioDAO->consultar());
-    $datos = $conexion->registro();
+        $conexion = new Conexion();
+        $usuarioDAO = new UsuarioDAO($this->id);
+        $conexion->abrir();
+        $conexion->ejecutar($usuarioDAO->consultar());
+        $datos = $conexion->registro();
 
-    echo "<pre>";
-    var_dump($datos);
-    echo "</pre>";
+        // Eliminar depuración
+        // echo "<pre>";
+        // var_dump($datos);
+        // echo "</pre>";
 
-    if ($datos) {
-        $this->nombre = $datos[0];
-        $this->correo = $datos[1];
-        $this->nickname = $datos[2];
-        $this->telefono = $datos[3];
-        $this->direccion = $datos[4];
+        if (is_array($datos) && count($datos) >= 5) {
+            $this->nombre = $datos[0];
+            $this->correo = $datos[1];
+            $this->nickname = $datos[2];
+            $this->telefono = $datos[3];
+            $this->direccion = $datos[4];
+        }
+        $conexion->cerrar();
     }
-    $conexion->cerrar();
-}
-
-
-
 
     
     public static function buscar($filtro) {
@@ -83,40 +81,43 @@ class Usuario {
     }
 
     public function autenticar() {
-    $conexion = new Conexion();
-    $conexion->abrir();
-    $usuarioDAO = new UsuarioDAO(0, "", "", $this->correo, $this->clave, "", "", "");
-    $conexion->ejecutar($usuarioDAO->autenticar());
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $usuarioDAO = new UsuarioDAO(0, "", "", $this->correo, $this->clave, "", "", "");
+        $conexion->ejecutar($usuarioDAO->autenticar());
 
-    if ($conexion->filas() == 0) {
-        $conexion->cerrar();
-        return 0; // Usuario no encontrado
-    } else {
-        $registro = $conexion->registro();
-        if ($registro[1] == 0) {
+        if ($conexion->filas() == 0) {
             $conexion->cerrar();
-            return 2; // Usuario inactivo (opcional, si se implementa luego)
+            return 0; // Usuario no encontrado
         } else {
-            $this->id = $registro[0];
-            $conexion->cerrar();
-            return 1; // Autenticación correcta
+            $registro = $conexion->registro();
+            if (is_array($registro) && isset($registro[1]) && $registro[1] == 0) {
+                $conexion->cerrar();
+                return 2; // Usuario inactivo (opcional, si se implementa luego)
+            } else {
+                $this->id = isset($registro[0]) ? $registro[0] : $this->id;
+                $conexion->cerrar();
+                return 1; // Autenticación correcta
+            }
         }
     }
-}
-public function actualizar() {
-    require_once("Persistencia/Conexion.php");
-    require_once("Persistencia/UsuarioDAO.php");
-
-    $conexion = new Conexion();
-    $conexion->abrir();
-
-    $usuarioDAO = new UsuarioDAO($this->id, $this->nombre, $this->telefono, $this->nickname, $this->correo, $this->clave);
-
-    $conexion->ejecutar($usuarioDAO->actualizar());
-
-    $conexion->cerrar();
-    return $exito;
-}
+    public function actualizar() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+        $usuarioDAO = new UsuarioDAO(
+            $this->id,
+            $this->nombre,
+            $this->apellido,
+            $this->correo,
+            $this->clave,
+            $this->nickname,
+            $this->telefono,
+            $this->direccion
+        );
+        $exito = $conexion->ejecutar($usuarioDAO->actualizar());
+        $conexion->cerrar();
+        return $exito;
+    }
 
 
 

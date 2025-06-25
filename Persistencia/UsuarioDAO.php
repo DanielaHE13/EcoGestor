@@ -34,14 +34,19 @@ class UsuarioDAO {
         return "SELECT id, nombre, correo, nickname FROM usuario WHERE nombre LIKE '%" . $filtro . "%' OR nickname LIKE '%" . $filtro . "%'";
     }
     public function actualizar() {
-    return "UPDATE usuario SET 
-                nombre = '" . $this->nombre . "',
-                telefono = '" . $this->telefono . "',
-                nickname = '" . $this->nickname . "',
-                correo = '" . $this->correo . "',
-                clave = '" . $this->clave . "'
-            WHERE id = '" . $this->id . "'";
-}
+        // Solo actualiza la clave si se proporciona una nueva
+        $sql = "UPDATE usuario SET ";
+        $sql .= "nombre = '" . $this->nombre . "', ";
+        $sql .= "telefono = '" . $this->telefono . "', ";
+        $sql .= "nickname = '" . $this->nickname . "', ";
+        $sql .= "correo = '" . $this->correo . "', ";
+        if (!empty($this->clave)) {
+            $sql .= "contrasena = '" . md5($this->clave) . "', ";
+        }
+        $sql = rtrim($sql, ", "); // Quita la última coma si existe
+        $sql .= " WHERE id = '" . $this->id . "'";
+        return $sql;
+    }
 
 
 

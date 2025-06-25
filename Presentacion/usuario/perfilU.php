@@ -7,14 +7,21 @@ if ($_SESSION["rol"] != "usuario") {
 require_once("Logica/Usuario.php");
 
 $id = $_SESSION["id"];
-$usuario = new Usuario($_SESSION["id"]);
+$usuario = new Usuario($id);
 $usuario->consultar();
 
 $mensaje = "";
 $alerta = "";
 
 if (isset($_POST["actualizar"])) {
-    $usuario = new Usuario($id, $_POST["nombre"], $_POST["telefono"], $_POST["nickname"], $_POST["correo"], $_POST["clave"]);
+    // El constructor espera: ($id, $nombre, $apellido, $correo, $clave, $nickname, $telefono, $direccion)
+    $nombre = $_POST["nombre"];
+    $correo = $_POST["correo"];
+    $nickname = $_POST["nickname"];
+    $telefono = $_POST["telefono"];
+    $clave = isset($_POST["clave"]) ? $_POST["clave"] : "";
+    // No se actualiza apellido ni direccion desde este formulario
+    $usuario = new Usuario($id, $nombre, "", $correo, $clave, $nickname, $telefono, "");
     $resultado = $usuario->actualizar();
     if ($resultado) {
         $mensaje = "Perfil actualizado correctamente.";
@@ -66,7 +73,7 @@ include("Presentacion/usuario/menuUsuario.php");
                 <h5 class="modal-title" id="modalEditarPerfilLabel">Editar Perfil</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-            <form method="post" action="?pid=<?php echo base64_encode("Presentacion/usuario/editarPerfilUsuario.php"); ?>">
+            <form method="post" action="">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Nombre</label>
@@ -81,8 +88,8 @@ include("Presentacion/usuario/menuUsuario.php");
                         <input type="text" name="nickname" class="form-control" value="<?php echo $usuario->getNickname(); ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input type="password" name="clave" class="form-control" placeholder="••••••••" required>
+                        <label class="form-label">Contraseña (dejar vacío para no cambiarla)</label>
+                        <input type="password" name="clave" class="form-control" placeholder="••••••••">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Teléfono</label>
