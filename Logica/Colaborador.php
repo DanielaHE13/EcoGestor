@@ -25,22 +25,6 @@ class Colaborador extends Persona {
     public function setTelefono($telefono) { $this->telefono = $telefono; }
     public function setDomicilio($domicilio) { $this->domicilio = $domicilio; }
 
-    // Métodos Lógicos
-
-    public function autenticar() {
-        $conexion = new Conexion();
-        $colaboradorDAO = new ColaboradorDAO(0, "", $this->correo, $this->clave);
-        $conexion->abrir();
-        $conexion->ejecutar($colaboradorDAO->autenticar());
-        if ($conexion->filas() == 1) {
-            $this->id = $conexion->registro()[0];
-            $conexion->cerrar();
-            return true;
-        } else {
-            $conexion->cerrar();
-            return false;
-        }
-    }
 
     public function consultar() {
         $conexion = new Conexion();

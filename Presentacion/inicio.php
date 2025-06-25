@@ -42,7 +42,7 @@
 <nav class="navbar navbar-expand-lg shadow-sm">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="#">
-      <img src="img/logo.png" alt="Logo" width="50" class="me-2">
+      <img src="img/logo.jpeg" alt="Logo" width="50" class="me-2">
       EcoGestor
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
