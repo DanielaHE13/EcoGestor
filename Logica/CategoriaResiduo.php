@@ -18,4 +18,5 @@ class CategoriaResiduo {
     public function setNombre($nombre) { $this->nombre = $nombre; }
     public function setDescripcion($descripcion) { $this->descripcion = $descripcion; }
 }
+
 ?>

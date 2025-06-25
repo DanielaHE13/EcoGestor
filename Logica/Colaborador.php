@@ -36,5 +36,28 @@ class Colaborador extends Persona {
     public function setDomicilio($domicilio) {
         $this->domicilio = $domicilio;
     }
+
+    public function autenticar() {
+    $conexion = new Conexion();
+    $conexion->abrir();
+    $colaboradorDAO = new ColaboradorDAO($this->id, $this->nombre, $this->correo, $this->clave, "", "", 0);
+    $conexion->ejecutar($colaboradorDAO->autenticar());
+
+    if ($conexion->filas() == 0) {
+        $conexion->cerrar();
+        return 0; // Colaborador no encontrado
+    } else {
+        $registro = $conexion->registro();
+        if ($registro[1] == 0) {
+            $conexion->cerrar();
+            return 2; // Inactivo (si lo implementas más adelante)
+        } else {
+            $this->id = $registro[0];
+            $conexion->cerrar();
+            return 1; // Autenticado correctamente
+        }
+    }
+}
+
 }
 ?>

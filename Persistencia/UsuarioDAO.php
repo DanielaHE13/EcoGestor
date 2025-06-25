@@ -31,5 +31,8 @@ class UsuarioDAO {
     public function buscar($filtro) {
         return "SELECT id, nombre, correo, nickname FROM usuario WHERE nombre LIKE '%" . $filtro . "%' OR nickname LIKE '%" . $filtro . "%'";
     }
+
+
+
 }
 
